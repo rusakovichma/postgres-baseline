@@ -159,7 +159,7 @@ control 'postgres-06' do
   title 'Use salted hash to store postgresql passwords'
   desc 'Store postgresql passwords in salted hash format (e.g. salted MD5).'
 
-    describe postgres_session(USER, input(USER_PASSWORD_PARAM)).query('SELECT passwd FROM pg_shadow;') do
+    describe postgres_session(USER, input(USER_PASSWORD_PARAM)).query('SELECT passwd FROM pg_shadow;'), :sensitive do
       its('output') { should match(/^scram-sha-256\S*$/) }
     end
 	
